@@ -1,0 +1,4 @@
+# Kiosk mode
+
+* mirKiosk
+ 
