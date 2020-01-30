@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>test1title</title>
+	<script src="static/jquery.min.js"></script>
+
+  <script>
+	function sendCmd(cmd) {
+		$.ajax({
+			url: cmd,
+			success: function( data ) {
+				$("#state_line").text(data);
+			},
+			error: function () {
+				$("#state_line").text("Error");
+			}
+		});
+	}
+	</script>
+
+
+</head>
+<body>
+
+	<fieldset style="width: 220px;">
+		<legend>legend1</legend>
+		<button onclick=sendCmd("/call1")>call1button</button>
+	</fieldset><br/>
+
+
+	<label>Last status message:</label>
+	<br/>
+	<span id="state_line"/></span>
+
+
+</body>
+</html>
