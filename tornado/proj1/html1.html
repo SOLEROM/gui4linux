@@ -123,7 +123,56 @@ will fork bash process and stdout write - using pipe - no blocking <br/>
   </script>
 
 
+<h2>call4 - will call "call3" on button click </h2>  
 
+
+  <button onclick=sendCmd4call3()>call3button</button>
+  <fieldset style="width: 220px;">
+    <legend>onClickResponse:</legend>
+   
+  <div class="container">
+    <hr>
+      WebSocket status : <span id="message4"></span>
+    <hr>
+    <fieldset style="width: 220px;">
+       <pre>
+          <div id="content4"></div>
+      </pre>
+     </fieldset><br/>
+  </div>
+
+
+  </fieldset><br/>
+
+ <script>
+  function sendCmd4call3() {
+    var ws4 = new WebSocket('ws://localhost:8888/call3');
+    var $message4 = $('#message4');
+    var $content4 = $('#content4');
+    ws4.onopen = function(){
+      $message4.attr("class", 'label label-success');
+      $message4.text('open');
+    };
+    ws4.onmessage = function(ev){
+      $message4.attr("class", 'label label-info');
+      $message4.hide();
+      $message4.fadeIn("fast");
+      $message4.text('received message');
+      $content4.append(ev.data);
+    };
+    ws4.onclose = function(ev){
+      $message4.attr("class", 'label label-important');
+      $message4.text('closed');
+    };
+    ws4.onerror = function(ev){
+      $message4.attr("class", 'label label-warning');
+      $message4.text('error occurred');
+    };
+
+
+  }
+
+  </script>
 
 
 
