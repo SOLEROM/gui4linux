@@ -3,35 +3,128 @@
 <head>
     <meta charset="utf-8">
     <title>test1title</title>
-	<script src="static/jquery.min.js"></script>
+	<script src="static/jquery.min.js_1.8"></script>
 
   <script>
-	function sendCmd(cmd) {
+	function sendCmd1(cmd) {
 		$.ajax({
 			url: cmd,
 			success: function( data ) {
-				$("#state_line").text(data);
+				$("#msg1_line").text(data);
 			},
 			error: function () {
-				$("#state_line").text("Error");
+				$("#msg1_line").text("Error");
 			}
 		});
 	}
+
 	</script>
+
+
 
 
 </head>
 <body>
 
+<h2>call1 - write msg and call bash on button click </h2>	
+
+direct subprocess run - will block until the process end the write stdout <br/>
+
+  <button onclick=sendCmd1("/call1")>call1button</button>
 	<fieldset style="width: 220px;">
-		<legend>legend1</legend>
-		<button onclick=sendCmd("/call1")>call1button</button>
+		<legend>onClickResponse:</legend>
+	  <span id="msg1_line"/></span>	
 	</fieldset><br/>
 
 
-	<label>Last status message:</label>
-	<br/>
-	<span id="state_line"/></span>
+<h2>call2 - stdout of tail on /tmp/b file </h2>	
+
+will fork tail process using pipe and stdout; process wont close <br/>
+
+  <div class="container">
+    <hr>
+      WebSocket status : <span id="message2"></span>
+    <hr>
+    <fieldset style="width: 220px;">
+       <pre>
+          <div id="content2"></div>
+      </pre>
+     </fieldset><br/>
+  </div>
+
+
+  <script>
+    var ws2 = new WebSocket('ws://localhost:8888/call2');
+    var $message2 = $('#message2');
+    var $content2 = $('#content2');
+    ws2.onopen = function(){
+      $message2.attr("class", 'label label-success');
+      $message2.text('open');
+    };
+    ws2.onmessage = function(ev){
+      $message2.attr("class", 'label label-info');
+      $message2.hide();
+      $message2.fadeIn("fast");
+      $message2.text('received message');
+      $content2.append(ev.data);
+    };
+    ws2.onclose = function(ev){
+      $message2.attr("class", 'label label-important');
+      $message2.text('closed');
+    };
+    ws2.onerror = function(ev){
+      $message2.attr("class", 'label label-warning');
+      $message2.text('error occurred');
+    };
+  </script>
+
+
+
+
+<h2>call3 - stdout of call bash process </h2>  
+
+will fork bash process and stdout write - using pipe - no blocking <br/>
+
+  <div class="container">
+    <hr>
+      WebSocket status : <span id="message3"></span>
+    <hr>
+    <fieldset style="width: 220px;">
+       <pre>
+          <div id="content3"></div>
+      </pre>
+     </fieldset><br/>
+  </div>
+
+
+  <script>
+    var ws3 = new WebSocket('ws://localhost:8888/call3');
+    var $message3 = $('#message3');
+    var $content3 = $('#content3');
+    ws3.onopen = function(){
+      $message3.attr("class", 'label label-success');
+      $message3.text('open');
+    };
+    ws3.onmessage = function(ev){
+      $message3.attr("class", 'label label-info');
+      $message3.hide();
+      $message3.fadeIn("fast");
+      $message3.text('received message');
+      $content3.append(ev.data);
+    };
+    ws3.onclose = function(ev){
+      $message3.attr("class", 'label label-important');
+      $message3.text('closed');
+    };
+    ws3.onerror = function(ev){
+      $message3.attr("class", 'label label-warning');
+      $message3.text('error occurred');
+    };
+  </script>
+
+
+
+
 
 
 </body>
