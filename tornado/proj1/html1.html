@@ -37,6 +37,44 @@ direct subprocess run - will block until the process end the write stdout <br/>
 	</fieldset><br/>
 
 
+<h2>call1.1 - add buttons by stdout of bash </h2> 
+
+
+ <div class="container" id="div1.1">
+  <fieldset style="width:50%;height: 220px;overflow:scroll;" id="addButt1.1">
+    <legend>onClickResponse:</legend> 
+ 
+      <button onclick=addButton1()>javaScript::call1.1</button>    
+      <button onclick=sendCmd2("/call1")>ajax::call1.1</button>    
+
+
+  </fieldset><br/>
+  </div>
+
+<script>
+  function sendCmd2(cmd) {
+    $.ajax({
+      url: cmd,
+      success: function( data ) {
+        document.getElementById("addButt1.1").innerHTML +=  
+              "<button onclick=do()>call</button>"; 
+      },
+      error: function () {
+        $("#msg1_line").text("Error");
+      }
+    });
+  }
+ </script>
+
+<script type="text/javascript">
+    function addButton1() { 
+            document.getElementById("addButt1.1").innerHTML +=  
+              "<button onclick=do()>call</button>"; 
+        } 
+
+</script>
+
+
 <h2>call2 - stdout of tail on /tmp/b file </h2>	
 
 will fork tail process using pipe and stdout; process wont close <br/>
@@ -166,6 +204,37 @@ will fork bash process and stdout write - using pipe - no blocking <br/>
       $message4.text('error occurred');
     };
 
+
+  }
+
+  </script>
+
+
+
+<h2>call5 - add buttons by stdout of bash </h2> 
+
+
+ <div class="container">
+  <fieldset style="width:50%;height: 220px;overflow:scroll;">
+    <legend>onClickResponse:</legend> 
+ 
+   <button onclick=sendCmdCall5()>call5button</button>
+
+          <div id="content5"></div>
+
+
+  </fieldset><br/>
+  </div>
+
+
+
+ <script>
+  function sendCmdCall5() {
+    var ws4 = new WebSocket('ws://localhost:8888/call3');
+    ws4.onmessage = function(ev){
+      document.getElementById("content5").innerHTML +=  
+              "<button onclick=do()>"+ev.data+"</button>"; 
+    };
 
   }
 
