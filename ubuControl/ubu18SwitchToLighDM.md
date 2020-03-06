@@ -11,6 +11,7 @@ Ubuntu 18.04 switched from LightDM to GDM3. Connecting to the login screen with 
 
 ```
 apt install lightdm
-dpkg-reconfigure gdm3
+//dpkg-reconfigure gdm3
+sudo dpkg-reconfigure lightdm
 
 ```

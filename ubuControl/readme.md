@@ -4,9 +4,14 @@
 * [understand different desktop environments](./desktopEnv.md)
 * [understand different desktop displays](./desktopDisp.md)
 
-## bugs and fix
-* [ubu18 sharing enable](./ubu18DesktopShareIssue1.md)
-* [no login to locked machine](./ubu18VncFromLogin.md)
+## ubuntu18 working set:
+* option#1: use default vino (locked screen issue)
+  - [ubu18 sharing enable](./ubu18DesktopShareIssue1.md)
+* option#2: login and bind to locked machine
+  - [SwitchToLighDM](./ubu18SwitchToLighDM)
+  - [add x11 vnc intead on vino](./vncServers/x11vnc.md)
+* option#3: use alternative session
+  - [xfc with vnc](./xfcINvnc.md)
 
 
 ## control options

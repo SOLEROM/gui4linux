@@ -6,14 +6,14 @@
 //basic:
 sudo apt install tigervnc-standalone-server
 //more:
-sudo apt install tigervnc-xorg-extension tigervnc-viewer
+sudo apt install tigervnc-xorg-extension tigervnc-viewer xserver-xorg-core
 ```
 
 * 1configure
 
 ```
 vncpassword
-vncserver
+
 vncserver -kill :*
 ```
 
@@ -29,6 +29,19 @@ vncconfig -iconic &
 dbus-launch --exit-with-session gnome-session &
 ```
 
+* start xfce session
+```
+~/.vnc/xstartup
+===============
+#!/bin/sh
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+vncconfig -iconic &
+startxfce4 &
+```
+
+
+
 * test
 
 ```
@@ -38,6 +51,7 @@ vncserver -localhost no -geometry 800x600 -depth 24
 
 ## start stop systemd
 
+* to work on locked station switch to [lightdm](../ubu18VncFromLogin.md)
 
 ```
 /etc/systemd/system/vncserver@.service
